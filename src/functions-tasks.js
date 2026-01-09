@@ -89,8 +89,22 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom(/* ...coefficients */) {
-  throw new Error('Not implemented');
+function getPolynom(...coefficients) {
+  if (coefficients.length === 0) return null;
+
+  return (x) => {
+    const poweredCoefs = coefficients.map((coef, index, arr) => {
+      const xPower = arr.length - 1 - index;
+      const xPowered = x ** xPower;
+      return coef * xPowered;
+    });
+    const totalSum = poweredCoefs.reduce((acc, coef) => {
+      const newValue = acc + coef;
+      return newValue;
+    }, 0);
+
+    return totalSum;
+  };
 }
 /**
  * Memoizes passed function and returns function
@@ -189,8 +203,10 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...innerArgs) {
+  return (...outerArgs) => {
+    return fn(...innerArgs, ...outerArgs);
+  };
 }
 
 /**
@@ -210,8 +226,13 @@ function partialUsingArguments(/* fn, ...args */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let currentId = startFrom;
+  return () => {
+    const returnId = currentId;
+    currentId += 1;
+    return returnId;
+  };
 }
 
 module.exports = {
