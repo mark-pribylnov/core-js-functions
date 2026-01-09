@@ -18,7 +18,7 @@
  *
  */
 function getCurrentFunctionName() {
-  throw new Error('Not implemented');
+  return getCurrentFunctionName.name;
 }
 
 /**
@@ -32,8 +32,8 @@ function getCurrentFunctionName() {
  *   getFunctionBody(hiHello) => "function hiHello() { console.log('hello world'); }"
  *
  */
-function getFunctionBody(/* func */) {
-  throw new Error('Not implemented');
+function getFunctionBody(func) {
+  return func ? func.toString() : '';
 }
 
 /**
@@ -49,9 +49,11 @@ function getFunctionBody(/* func */) {
  *    (a, b) => a * b
  *  ]) => [0, 1, 2]
  *
- */
-function getArgumentsCount(/* funcs */) {
-  throw new Error('Not implemented');
+ */ function getArgumentsCount(args) {
+  const arr = [];
+
+  args.forEach((func) => arr.push(func.length));
+  return arr;
 }
 
 /**
@@ -90,9 +92,6 @@ function getPowerFunction(/* exponent */) {
 function getPolynom(/* ...coefficients */) {
   throw new Error('Not implemented');
 }
-
-
-
 /**
  * Memoizes passed function and returns function
  * which invoked first time calls the passed function and then always returns cached result.
